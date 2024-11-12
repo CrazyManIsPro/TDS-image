@@ -11,7 +11,7 @@ IntroFrame.Parent = ScreenGui
 
 local TDSImage = Instance.new("ImageLabel")
 -- Start with a smaller size
-TDSImage.Size = UDim2.new(0.15, 0, 0.15, 0)  -- Reduced from 0.3 to 0.15
+TDSImage.Size = UDim2.new(0.15, 0, 0.5, 0)  -- Reduced from 0.3 to 0.15
 TDSImage.Position = UDim2.new(0.5, 0, 0.5, 0)
 TDSImage.AnchorPoint = Vector2.new(0.5, 0.5)
 TDSImage.BackgroundTransparency = 1
