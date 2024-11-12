@@ -10,7 +10,8 @@ IntroFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black background
 IntroFrame.Parent = ScreenGui
 
 local TDSImage = Instance.new("ImageLabel")
-TDSImage.Size = UDim2.new(0.3, 0, 0.3, 0)
+-- Start with a smaller size
+TDSImage.Size = UDim2.new(0.15, 0, 0.15, 0)  -- Reduced from 0.3 to 0.15
 TDSImage.Position = UDim2.new(0.5, 0, 0.5, 0)
 TDSImage.AnchorPoint = Vector2.new(0.5, 0.5)
 TDSImage.BackgroundTransparency = 1
@@ -21,11 +22,11 @@ TDSImage.Parent = IntroFrame
 -- Zoom in and fade out effect
 local TweenService = game:GetService("TweenService")
 
--- First tween: Zoom in
+-- First tween: Zoom in (to a smaller final size)
 local zoomTween = TweenService:Create(
     TDSImage,
     TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-    {Size = UDim2.new(0.5, 0, 0.5, 0)}
+    {Size = UDim2.new(0.25, 0, 0.25, 0)}  -- Reduced from 0.5 to 0.25
 )
 
 -- Second tween: Fade out everything
