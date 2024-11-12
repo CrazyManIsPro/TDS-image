@@ -1,32 +1,35 @@
--- Intro GUI with Image
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "TDSHub"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
+-- Intro GUI for "TDS" text
 local IntroFrame = Instance.new("Frame")
 IntroFrame.Size = UDim2.new(1, 0, 1, 0)
 IntroFrame.BackgroundTransparency = 1
 IntroFrame.Parent = ScreenGui
 
-local TDSImage = Instance.new("ImageLabel")
-TDSImage.Size = UDim2.new(0.3, 0, 0.3, 0)
-TDSImage.Position = UDim2.new(0.5, 0, 0.5, 0)
-TDSImage.AnchorPoint = Vector2.new(0.5, 0.5)
-TDSImage.BackgroundTransparency = 1
-TDSImage.Image = "https://raw.githubusercontent.com/CrazyManIsPro/TDS-image/main/intro_image.png" -- Using the GitHub raw link for intro_image.png
-TDSImage.Parent = IntroFrame
+local TDSLabel = Instance.new("TextLabel")
+TDSLabel.Size = UDim2.new(0.3, 0, 0.3, 0)
+TDSLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+TDSLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+TDSLabel.BackgroundTransparency = 1
+TDSLabel.Text = "TDS"
+TDSLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+TDSLabel.Font = Enum.Font.GothamBold
+TDSLabel.TextScaled = true
+TDSLabel.Parent = IntroFrame
 
--- Zoom in and fade out effect for TDSImage
+-- Zoom in and fade out effect for TDSLabel
 local TweenService = game:GetService("TweenService")
 local zoomTween = TweenService:Create(
-    TDSImage,
+    TDSLabel,
     TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-    {ImageTransparency = 0, Size = UDim2.new(0.5, 0, 0.5, 0)}
+    {TextTransparency = 0, Size = UDim2.new(0.5, 0, 0.5, 0)}
 )
 local fadeOutTween = TweenService:Create(
-    TDSImage,
+    TDSLabel,
     TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-    {ImageTransparency = 1}
+    {TextTransparency = 1}
 )
 
 zoomTween:Play()
