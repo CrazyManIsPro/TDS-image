@@ -1,123 +1,58 @@
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "TDSLogo"
+ScreenGui.Name = "TDSHub"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-local LogoFrame = Instance.new("Frame")
-LogoFrame.Size = UDim2.new(0.2, 0, 0.2, 0)  -- Adjust size as needed
-LogoFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-LogoFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-LogoFrame.BackgroundTransparency = 1
-LogoFrame.Parent = ScreenGui
+-- Intro GUI for "TDS" text
+local IntroFrame = Instance.new("Frame")
+IntroFrame.Size = UDim2.new(1, 0, 1, 0)
+IntroFrame.BackgroundTransparency = 1
+IntroFrame.Parent = ScreenGui
 
--- Create the logo using ViewportFrame for 3D effect
-local ViewportFrame = Instance.new("ViewportFrame")
-ViewportFrame.Size = UDim2.new(1, 0, 1, 0)
-ViewportFrame.BackgroundTransparency = 1
-ViewportFrame.Parent = LogoFrame
+local TDSLabel = Instance.new("TextLabel")
+TDSLabel.Size = UDim2.new(0.3, 0, 0.3, 0)
+TDSLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+TDSLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+TDSLabel.BackgroundTransparency = 1
+TDSLabel.Text = "TDS"
+TDSLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+TDSLabel.Font = Enum.Font.GothamBold
+TDSLabel.TextScaled = true
+TDSLabel.Parent = IntroFrame
 
--- Create 3D elements in the ViewportFrame
-local Camera = Instance.new("Camera")
-Camera.FieldOfView = 70
-ViewportFrame.CurrentCamera = Camera
-Camera.CFrame = CFrame.new(Vector3.new(0, 0, -10), Vector3.new(0, 0, 0))
-
--- Create the katana
-local Katana = Instance.new("Part")
-Katana.Size = Vector3.new(8, 0.4, 0.4)
-Katana.CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(0, 0, math.rad(45))
-Katana.Parent = ViewportFrame
-
--- Create the blade material
-local bladeMaterial = Instance.new("SpecialMesh")
-bladeMaterial.MeshType = Enum.MeshType.Brick
-bladeMaterial.Parent = Katana
-
--- Add metallic texture
-local metalTexture = Instance.new("SurfaceGui")
-metalTexture.Parent = Katana
-metalTexture.Face = Enum.NormalId.Front
-
-local gradient = Instance.new("UIGradient")
-gradient.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(200, 200, 200)),
-    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
-})
-gradient.Parent = metalTexture
-
--- Add the text "TDS HUB"
-local TextLabel = Instance.new("TextLabel")
-TextLabel.Size = UDim2.new(1, 0, 0.3, 0)
-TextLabel.Position = UDim2.new(0, 0, 0.85, 0)
-TextLabel.BackgroundTransparency = 1
-TextLabel.Text = "TDS HUB"
-TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)  -- Bright red
-TextLabel.TextStrokeColor3 = Color3.fromRGB(100, 0, 0)  -- Darker red for stroke
-TextLabel.TextStrokeTransparency = 0
-TextLabel.Font = Enum.Font.GothamBold
-TextLabel.TextScaled = true
-TextLabel.Parent = LogoFrame
-
--- Add glow effect
-local glowEffect = Instance.new("ImageLabel")
-glowEffect.Size = UDim2.new(1.2, 0, 1.2, 0)
-glowEffect.Position = UDim2.new(-0.1, 0, -0.1, 0)
-glowEffect.BackgroundTransparency = 1
-glowEffect.Image = "rbxassetid://131436595"  -- Glow texture
-glowEffect.ImageColor3 = Color3.fromRGB(255, 0, 0)
-glowEffect.ImageTransparency = 0.8
-glowEffect.Parent = LogoFrame
-
--- Animate the katana
+-- Zoom in and fade out effect for TDSLabel
 local TweenService = game:GetService("TweenService")
+local zoomTween = TweenService:Create(
+    TDSLabel,
+    TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+    {TextTransparency = 0, Size = UDim2.new(0.5, 0, 0.5, 0)}
+)
+local fadeOutTween = TweenService:Create(
+    TDSLabel,
+    TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+    {TextTransparency = 1}
+)
 
-local function animateKatana()
-    local rotationTween = TweenService:Create(
-        Katana,
-        TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1),
-        {CFrame = Katana.CFrame * CFrame.Angles(0, math.rad(360), 0)}
-    )
-    rotationTween:Play()
-end
+zoomTween:Play()
+zoomTween.Completed:Wait()
+wait(0.5)
+fadeOutTween:Play()
+fadeOutTween.Completed:Wait()
+IntroFrame:Destroy() -- Remove intro GUI after effect
 
-animateKatana()
-
--- Add shine effect animation
-local function animateShine()
-    while true do
-        local shineTween = TweenService:Create(
-            gradient,
-            TweenInfo.new(2, Enum.EasingStyle.Linear),
-            {Offset = Vector2.new(1, 0)}
-        )
-        shineTween:Play()
-        wait(2)
-        gradient.Offset = Vector2.new(-1, 0)
-        wait(1)
-    end
-end
-
-coroutine.wrap(animateShine)()
-
-return LogoFrame
-
--- Play intro first
-playIntro()
-wait(2.5) -- Wait for intro to finish
-
--- Now create the main GUI
+-- Main Frame with Animation
 local MainFrame = Instance.new("Frame")
 MainFrame.Size = UDim2.new(0.6, 0, 0.7, 0)
 MainFrame.Position = UDim2.new(0.2, 0, 0.15, 0)
 MainFrame.BackgroundColor3 = Color3.fromRGB(250, 250, 250)
 MainFrame.BorderSizePixel = 0
+MainFrame.Visible = true
 MainFrame.Parent = ScreenGui
 
 local UICorner = Instance.new("UICorner")
 UICorner.CornerRadius = UDim.new(0, 20)
 UICorner.Parent = MainFrame
 
--- Toggle Button
+-- Toggle Button on the left side of the screen
 local ToggleButton = Instance.new("TextButton")
 ToggleButton.Text = "Toggle GUI"
 ToggleButton.Size = UDim2.new(0.1, 0, 0.05, 0)
