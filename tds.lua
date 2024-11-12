@@ -2,34 +2,32 @@ local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "TDSHub"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- Intro GUI for "TDS" text
+-- Intro GUI with image instead of text
 local IntroFrame = Instance.new("Frame")
 IntroFrame.Size = UDim2.new(1, 0, 1, 0)
 IntroFrame.BackgroundTransparency = 1
 IntroFrame.Parent = ScreenGui
 
-local TDSLabel = Instance.new("TextLabel")
-TDSLabel.Size = UDim2.new(0.3, 0, 0.3, 0)
-TDSLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-TDSLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-TDSLabel.BackgroundTransparency = 1
-TDSLabel.Text = "TDS"
-TDSLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
-TDSLabel.Font = Enum.Font.GothamBold
-TDSLabel.TextScaled = true
-TDSLabel.Parent = IntroFrame
+local TDSImage = Instance.new("ImageLabel")
+TDSImage.Size = UDim2.new(0.3, 0, 0.3, 0)
+TDSImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+TDSImage.AnchorPoint = Vector2.new(0.5, 0.5)
+TDSImage.BackgroundTransparency = 1
+TDSImage.Image = "https://raw.githubusercontent.com/CrazyManIsPro/TDS-image/refs/heads/main/intro_image.png"
+TDSImage.ScaleType = Enum.ScaleType.Fit
+TDSImage.Parent = IntroFrame
 
--- Zoom in and fade out effect for TDSLabel
+-- Zoom in and fade out effect for TDSImage
 local TweenService = game:GetService("TweenService")
 local zoomTween = TweenService:Create(
-    TDSLabel,
+    TDSImage,
     TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-    {TextTransparency = 0, Size = UDim2.new(0.5, 0, 0.5, 0)}
+    {ImageTransparency = 0, Size = UDim2.new(0.5, 0, 0.5, 0)}
 )
 local fadeOutTween = TweenService:Create(
-    TDSLabel,
+    TDSImage,
     TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-    {TextTransparency = 1}
+    {ImageTransparency = 1}
 )
 
 zoomTween:Play()
@@ -37,7 +35,7 @@ zoomTween.Completed:Wait()
 wait(0.5)
 fadeOutTween:Play()
 fadeOutTween.Completed:Wait()
-IntroFrame:Destroy() -- Remove intro GUI after effect
+IntroFrame:Destroy()
 
 -- Main Frame with Animation
 local MainFrame = Instance.new("Frame")
