@@ -2,10 +2,11 @@ local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "TDSHub"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- Intro GUI with image instead of text
+-- Intro GUI with image
 local IntroFrame = Instance.new("Frame")
 IntroFrame.Size = UDim2.new(1, 0, 1, 0)
-IntroFrame.BackgroundTransparency = 1
+IntroFrame.BackgroundTransparency = 0
+IntroFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black background
 IntroFrame.Parent = ScreenGui
 
 local TDSImage = Instance.new("ImageLabel")
@@ -13,28 +14,43 @@ TDSImage.Size = UDim2.new(0.3, 0, 0.3, 0)
 TDSImage.Position = UDim2.new(0.5, 0, 0.5, 0)
 TDSImage.AnchorPoint = Vector2.new(0.5, 0.5)
 TDSImage.BackgroundTransparency = 1
-TDSImage.Image = "https://raw.githubusercontent.com/CrazyManIsPro/TDS-image/refs/heads/main/intro_image.png"
+TDSImage.Image = "https://github.com/CrazyManIsPro/TDS-image/blob/main/intro_image.png?raw=true"
 TDSImage.ScaleType = Enum.ScaleType.Fit
 TDSImage.Parent = IntroFrame
 
--- Zoom in and fade out effect for TDSImage
+-- Zoom in and fade out effect
 local TweenService = game:GetService("TweenService")
+
+-- First tween: Zoom in
 local zoomTween = TweenService:Create(
     TDSImage,
     TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-    {ImageTransparency = 0, Size = UDim2.new(0.5, 0, 0.5, 0)}
+    {Size = UDim2.new(0.5, 0, 0.5, 0)}
 )
-local fadeOutTween = TweenService:Create(
+
+-- Second tween: Fade out everything
+local fadeOutImageTween = TweenService:Create(
     TDSImage,
     TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
     {ImageTransparency = 1}
 )
 
+local fadeOutFrameTween = TweenService:Create(
+    IntroFrame,
+    TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+    {BackgroundTransparency = 1}
+)
+
+-- Wait for image to load
+wait(1)
+
+-- Play the sequence
 zoomTween:Play()
 zoomTween.Completed:Wait()
 wait(0.5)
-fadeOutTween:Play()
-fadeOutTween.Completed:Wait()
+fadeOutImageTween:Play()
+fadeOutFrameTween:Play()
+fadeOutFrameTween.Completed:Wait()
 IntroFrame:Destroy()
 
 -- Main Frame with Animation
