@@ -2,56 +2,104 @@ local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "TDSHub"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
+-- Debug function
+local function debugPrint(msg)
+    print("[TDS Hub Debug] " .. msg)
+end
+
+debugPrint("Starting GUI creation...")
+
 -- Intro GUI with image
 local IntroFrame = Instance.new("Frame")
 IntroFrame.Size = UDim2.new(1, 0, 1, 0)
 IntroFrame.BackgroundTransparency = 0
+IntroFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 IntroFrame.Parent = ScreenGui
 
+-- Debug text to show loading status
+local LoadingText = Instance.new("TextLabel")
+LoadingText.Size = UDim2.new(0.3, 0, 0.05, 0)
+LoadingText.Position = UDim2.new(0.5, 0, 0.7, 0)
+LoadingText.AnchorPoint = Vector2.new(0.5, 0.5)
+LoadingText.BackgroundTransparency = 1
+LoadingText.TextColor3 = Color3.fromRGB(255, 255, 255)
+LoadingText.Text = "Loading image..."
+LoadingText.Font = Enum.Font.GothamBold
+LoadingText.TextScaled = true
+LoadingText.Parent = IntroFrame
+
 local TDSImage = Instance.new("ImageLabel")
--- Start with a smaller size
-TDSImage.Size = UDim2.new(0.15, 0, 0.5, 0)  -- Reduced from 0.3 to 0.15
+TDSImage.Size = UDim2.new(0.15, 0, 0.15, 0)
 TDSImage.Position = UDim2.new(0.5, 0, 0.5, 0)
 TDSImage.AnchorPoint = Vector2.new(0.5, 0.5)
-TDSImage.BackgroundTransparency = 1
+TDSImage.BackgroundTransparency = 0  -- Make background visible for debugging
+TDSImage.BackgroundColor3 = Color3.fromRGB(255, 0, 0)  -- Red background to see the bounds
 TDSImage.Image = "https://github.com/CrazyManIsPro/TDS-image/blob/main/intro_image.png?raw=true"
 TDSImage.ScaleType = Enum.ScaleType.Fit
 TDSImage.Parent = IntroFrame
 
--- Zoom in and fade out effect
-local TweenService = game:GetService("TweenService")
+-- Add image loaded callback
+TDSImage:GetPropertyChangedSignal("IsLoaded"):Connect(function()
+    if TDSImage.IsLoaded then
+        debugPrint("Image loaded successfully!")
+        LoadingText.Text = "Image loaded!"
+        
+        -- Start animation sequence
+        local TweenService = game:GetService("TweenService")
+        
+        -- Zoom in
+        local zoomTween = TweenService:Create(
+            TDSImage,
+            TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+            {Size = UDim2.new(0.25, 0, 0.25, 0)}
+        )
+        
+        -- Fade out
+        local fadeOutImageTween = TweenService:Create(
+            TDSImage,
+            TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+            {ImageTransparency = 1, BackgroundTransparency = 1}
+        )
+        
+        local fadeOutFrameTween = TweenService:Create(
+            IntroFrame,
+            TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+            {BackgroundTransparency = 1}
+        )
+        
+        -- Execute the sequence
+        wait(1)
+        debugPrint("Starting zoom animation")
+        zoomTween:Play()
+        zoomTween.Completed:Wait()
+        
+        wait(0.5)
+        debugPrint("Starting fade animation")
+        fadeOutImageTween:Play()
+        fadeOutFrameTween:Play()
+        LoadingText.TextTransparency = 1
+        
+        fadeOutFrameTween.Completed:Wait()
+        debugPrint("Animation complete, destroying intro frame")
+        IntroFrame:Destroy()
+    else
+        debugPrint("Image failed to load!")
+        LoadingText.Text = "Image failed to load!"
+    end
+end)
 
--- First tween: Zoom in (to a smaller final size)
-local zoomTween = TweenService:Create(
-    TDSImage,
-    TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-    {Size = UDim2.new(0.25, 0, 0.25, 0)}  -- Reduced from 0.5 to 0.25
-)
+-- Timeout check
+spawn(function()
+    wait(5)  -- Wait 5 seconds
+    if IntroFrame.Parent then
+        debugPrint("Timeout reached - image might not have loaded")
+        LoadingText.Text = "Loading timed out"
+        wait(1)
+        IntroFrame:Destroy()
+    end
+end)
 
--- Second tween: Fade out everything
-local fadeOutImageTween = TweenService:Create(
-    TDSImage,
-    TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-    {ImageTransparency = 1}
-)
-
-local fadeOutFrameTween = TweenService:Create(
-    IntroFrame,
-    TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-    {BackgroundTransparency = 1}
-)
-
--- Wait for image to load
-wait(1)
-
--- Play the sequence
-zoomTween:Play()
-zoomTween.Completed:Wait()
-wait(0.5)
-fadeOutImageTween:Play()
-fadeOutFrameTween:Play()
-fadeOutFrameTween.Completed:Wait()
-IntroFrame:Destroy()
+debugPrint("Setup complete, waiting for image to load...")
 
 -- Main Frame with Animation
 local MainFrame = Instance.new("Frame")
