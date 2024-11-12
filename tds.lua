@@ -1,61 +1,105 @@
--- Create ScreenGui
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "TDSHub"
+ScreenGui.Name = "TDSLogo"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- Function to create and play intro
-local function playIntro()
-    -- Create intro container
-    local IntroFrame = Instance.new("Frame")
-    IntroFrame.Size = UDim2.new(1, 0, 1, 0)
-    IntroFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    IntroFrame.BackgroundTransparency = 0
-    IntroFrame.Parent = ScreenGui
-    
-    -- Create image
-    local TDSImage = Instance.new("ImageLabel")
-    TDSImage.Size = UDim2.new(0.15, 0, 0.15, 0)
-    TDSImage.Position = UDim2.new(0.5, 0, 0.5, 0)
-    TDSImage.AnchorPoint = Vector2.new(0.5, 0.5)
-    TDSImage.BackgroundTransparency = 1
-    TDSImage.Image = "https://github.com/CrazyManIsPro/TDS-image/blob/main/intro_image.png?raw=true"
-    TDSImage.ScaleType = Enum.ScaleType.Fit
-    TDSImage.ImageTransparency = 1  -- Start fully transparent
-    TDSImage.Parent = IntroFrame
-    
-    -- Animation sequence
-    local TweenService = game:GetService("TweenService")
-    
-    -- Fade in image
-    local fadeInTween = TweenService:Create(
-        TDSImage,
-        TweenInfo.new(1, Enum.EasingStyle.Quad),
-        {ImageTransparency = 0}
+local LogoFrame = Instance.new("Frame")
+LogoFrame.Size = UDim2.new(0.2, 0, 0.2, 0)  -- Adjust size as needed
+LogoFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+LogoFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+LogoFrame.BackgroundTransparency = 1
+LogoFrame.Parent = ScreenGui
+
+-- Create the logo using ViewportFrame for 3D effect
+local ViewportFrame = Instance.new("ViewportFrame")
+ViewportFrame.Size = UDim2.new(1, 0, 1, 0)
+ViewportFrame.BackgroundTransparency = 1
+ViewportFrame.Parent = LogoFrame
+
+-- Create 3D elements in the ViewportFrame
+local Camera = Instance.new("Camera")
+Camera.FieldOfView = 70
+ViewportFrame.CurrentCamera = Camera
+Camera.CFrame = CFrame.new(Vector3.new(0, 0, -10), Vector3.new(0, 0, 0))
+
+-- Create the katana
+local Katana = Instance.new("Part")
+Katana.Size = Vector3.new(8, 0.4, 0.4)
+Katana.CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(0, 0, math.rad(45))
+Katana.Parent = ViewportFrame
+
+-- Create the blade material
+local bladeMaterial = Instance.new("SpecialMesh")
+bladeMaterial.MeshType = Enum.MeshType.Brick
+bladeMaterial.Parent = Katana
+
+-- Add metallic texture
+local metalTexture = Instance.new("SurfaceGui")
+metalTexture.Parent = Katana
+metalTexture.Face = Enum.NormalId.Front
+
+local gradient = Instance.new("UIGradient")
+gradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(200, 200, 200)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
+})
+gradient.Parent = metalTexture
+
+-- Add the text "TDS HUB"
+local TextLabel = Instance.new("TextLabel")
+TextLabel.Size = UDim2.new(1, 0, 0.3, 0)
+TextLabel.Position = UDim2.new(0, 0, 0.85, 0)
+TextLabel.BackgroundTransparency = 1
+TextLabel.Text = "TDS HUB"
+TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)  -- Bright red
+TextLabel.TextStrokeColor3 = Color3.fromRGB(100, 0, 0)  -- Darker red for stroke
+TextLabel.TextStrokeTransparency = 0
+TextLabel.Font = Enum.Font.GothamBold
+TextLabel.TextScaled = true
+TextLabel.Parent = LogoFrame
+
+-- Add glow effect
+local glowEffect = Instance.new("ImageLabel")
+glowEffect.Size = UDim2.new(1.2, 0, 1.2, 0)
+glowEffect.Position = UDim2.new(-0.1, 0, -0.1, 0)
+glowEffect.BackgroundTransparency = 1
+glowEffect.Image = "rbxassetid://131436595"  -- Glow texture
+glowEffect.ImageColor3 = Color3.fromRGB(255, 0, 0)
+glowEffect.ImageTransparency = 0.8
+glowEffect.Parent = LogoFrame
+
+-- Animate the katana
+local TweenService = game:GetService("TweenService")
+
+local function animateKatana()
+    local rotationTween = TweenService:Create(
+        Katana,
+        TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, -1),
+        {CFrame = Katana.CFrame * CFrame.Angles(0, math.rad(360), 0)}
     )
-    
-    -- Zoom and fade out
-    local zoomOutTween = TweenService:Create(
-        TDSImage,
-        TweenInfo.new(1, Enum.EasingStyle.Quad),
-        {Size = UDim2.new(0.25, 0, 0.25, 0), ImageTransparency = 1}
-    )
-    
-    local fadeOutTween = TweenService:Create(
-        IntroFrame,
-        TweenInfo.new(1, Enum.EasingStyle.Quad),
-        {BackgroundTransparency = 1}
-    )
-    
-    -- Play sequence
-    fadeInTween:Play()
-    wait(1.5)
-    zoomOutTween:Play()
-    fadeOutTween:Play()
-    wait(1)
-    
-    -- Clean up intro
-    IntroFrame:Destroy()
+    rotationTween:Play()
 end
+
+animateKatana()
+
+-- Add shine effect animation
+local function animateShine()
+    while true do
+        local shineTween = TweenService:Create(
+            gradient,
+            TweenInfo.new(2, Enum.EasingStyle.Linear),
+            {Offset = Vector2.new(1, 0)}
+        )
+        shineTween:Play()
+        wait(2)
+        gradient.Offset = Vector2.new(-1, 0)
+        wait(1)
+    end
+end
+
+coroutine.wrap(animateShine)()
+
+return LogoFrame
 
 -- Play intro first
 playIntro()
