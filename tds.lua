@@ -1,120 +1,79 @@
+-- Create ScreenGui
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "TDSHub"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- Debug function
-local function debugPrint(msg)
-    print("[TDS Hub Debug] " .. msg)
+-- Function to create and play intro
+local function playIntro()
+    -- Create intro container
+    local IntroFrame = Instance.new("Frame")
+    IntroFrame.Size = UDim2.new(1, 0, 1, 0)
+    IntroFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    IntroFrame.BackgroundTransparency = 0
+    IntroFrame.Parent = ScreenGui
+    
+    -- Create image
+    local TDSImage = Instance.new("ImageLabel")
+    TDSImage.Size = UDim2.new(0.15, 0, 0.15, 0)
+    TDSImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+    TDSImage.AnchorPoint = Vector2.new(0.5, 0.5)
+    TDSImage.BackgroundTransparency = 1
+    TDSImage.Image = "https://github.com/CrazyManIsPro/TDS-image/blob/main/intro_image.png?raw=true"
+    TDSImage.ScaleType = Enum.ScaleType.Fit
+    TDSImage.ImageTransparency = 1  -- Start fully transparent
+    TDSImage.Parent = IntroFrame
+    
+    -- Animation sequence
+    local TweenService = game:GetService("TweenService")
+    
+    -- Fade in image
+    local fadeInTween = TweenService:Create(
+        TDSImage,
+        TweenInfo.new(1, Enum.EasingStyle.Quad),
+        {ImageTransparency = 0}
+    )
+    
+    -- Zoom and fade out
+    local zoomOutTween = TweenService:Create(
+        TDSImage,
+        TweenInfo.new(1, Enum.EasingStyle.Quad),
+        {Size = UDim2.new(0.25, 0, 0.25, 0), ImageTransparency = 1}
+    )
+    
+    local fadeOutTween = TweenService:Create(
+        IntroFrame,
+        TweenInfo.new(1, Enum.EasingStyle.Quad),
+        {BackgroundTransparency = 1}
+    )
+    
+    -- Play sequence
+    fadeInTween:Play()
+    wait(1.5)
+    zoomOutTween:Play()
+    fadeOutTween:Play()
+    wait(1)
+    
+    -- Clean up intro
+    IntroFrame:Destroy()
 end
 
-debugPrint("Starting GUI creation...")
+-- Play intro first
+playIntro()
+wait(2.5) -- Wait for intro to finish
 
--- Intro GUI with image
-local IntroFrame = Instance.new("Frame")
-IntroFrame.Size = UDim2.new(1, 0, 1, 0)
-IntroFrame.BackgroundTransparency = 0
-IntroFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-IntroFrame.Parent = ScreenGui
-
--- Debug text to show loading status
-local LoadingText = Instance.new("TextLabel")
-LoadingText.Size = UDim2.new(0.3, 0, 0.05, 0)
-LoadingText.Position = UDim2.new(0.5, 0, 0.7, 0)
-LoadingText.AnchorPoint = Vector2.new(0.5, 0.5)
-LoadingText.BackgroundTransparency = 1
-LoadingText.TextColor3 = Color3.fromRGB(255, 255, 255)
-LoadingText.Text = "Loading image..."
-LoadingText.Font = Enum.Font.GothamBold
-LoadingText.TextScaled = true
-LoadingText.Parent = IntroFrame
-
-local TDSImage = Instance.new("ImageLabel")
-TDSImage.Size = UDim2.new(0.15, 0, 0.15, 0)
-TDSImage.Position = UDim2.new(0.5, 0, 0.5, 0)
-TDSImage.AnchorPoint = Vector2.new(0.5, 0.5)
-TDSImage.BackgroundTransparency = 0  -- Make background visible for debugging
-TDSImage.BackgroundColor3 = Color3.fromRGB(255, 0, 0)  -- Red background to see the bounds
-TDSImage.Image = "https://github.com/CrazyManIsPro/TDS-image/blob/main/intro_image.png?raw=true"
-TDSImage.ScaleType = Enum.ScaleType.Fit
-TDSImage.Parent = IntroFrame
-
--- Add image loaded callback
-TDSImage:GetPropertyChangedSignal("IsLoaded"):Connect(function()
-    if TDSImage.IsLoaded then
-        debugPrint("Image loaded successfully!")
-        LoadingText.Text = "Image loaded!"
-        
-        -- Start animation sequence
-        local TweenService = game:GetService("TweenService")
-        
-        -- Zoom in
-        local zoomTween = TweenService:Create(
-            TDSImage,
-            TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-            {Size = UDim2.new(0.25, 0, 0.25, 0)}
-        )
-        
-        -- Fade out
-        local fadeOutImageTween = TweenService:Create(
-            TDSImage,
-            TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-            {ImageTransparency = 1, BackgroundTransparency = 1}
-        )
-        
-        local fadeOutFrameTween = TweenService:Create(
-            IntroFrame,
-            TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-            {BackgroundTransparency = 1}
-        )
-        
-        -- Execute the sequence
-        wait(1)
-        debugPrint("Starting zoom animation")
-        zoomTween:Play()
-        zoomTween.Completed:Wait()
-        
-        wait(0.5)
-        debugPrint("Starting fade animation")
-        fadeOutImageTween:Play()
-        fadeOutFrameTween:Play()
-        LoadingText.TextTransparency = 1
-        
-        fadeOutFrameTween.Completed:Wait()
-        debugPrint("Animation complete, destroying intro frame")
-        IntroFrame:Destroy()
-    else
-        debugPrint("Image failed to load!")
-        LoadingText.Text = "Image failed to load!"
-    end
-end)
-
--- Timeout check
-spawn(function()
-    wait(5)  -- Wait 5 seconds
-    if IntroFrame.Parent then
-        debugPrint("Timeout reached - image might not have loaded")
-        LoadingText.Text = "Loading timed out"
-        wait(1)
-        IntroFrame:Destroy()
-    end
-end)
-
-debugPrint("Setup complete, waiting for image to load...")
-
--- Main Frame with Animation
+-- Now create the main GUI
 local MainFrame = Instance.new("Frame")
 MainFrame.Size = UDim2.new(0.6, 0, 0.7, 0)
 MainFrame.Position = UDim2.new(0.2, 0, 0.15, 0)
 MainFrame.BackgroundColor3 = Color3.fromRGB(250, 250, 250)
 MainFrame.BorderSizePixel = 0
-MainFrame.Visible = true
 MainFrame.Parent = ScreenGui
 
 local UICorner = Instance.new("UICorner")
 UICorner.CornerRadius = UDim.new(0, 20)
 UICorner.Parent = MainFrame
 
--- Toggle Button on the left side of the screen
+-- Toggle Button
 local ToggleButton = Instance.new("TextButton")
 ToggleButton.Text = "Toggle GUI"
 ToggleButton.Size = UDim2.new(0.1, 0, 0.05, 0)
