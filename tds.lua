@@ -6,7 +6,6 @@ ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 local IntroFrame = Instance.new("Frame")
 IntroFrame.Size = UDim2.new(1, 0, 1, 0)
 IntroFrame.BackgroundTransparency = 0
-IntroFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black background
 IntroFrame.Parent = ScreenGui
 
 local TDSImage = Instance.new("ImageLabel")
