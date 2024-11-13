@@ -2,9 +2,9 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "TDS HUB ✔",
-   LoadingTitle = "Rayfield Interface Suite",
+   LoadingTitle = "TDS Keyless Scripts",
    LoadingSubtitle = "Loading best hub....",
-   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+   Theme = "Serenity", -- Check https://docs.sirius.menu/rayfield/configuration/themes
 
    DisableRayfieldPrompts = false,
    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
@@ -32,3 +32,5 @@ local Window = Rayfield:CreateWindow({
       Key = {"deviousISMad"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
 })
+
+local MainTab = Window:CreateTab("🌍 Home", 4483362458) -- Title, Image
