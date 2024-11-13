@@ -33,4 +33,22 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local MainTab = Window:CreateTab("🌍 Home", 4483362458) -- Title, Image
+local MainTab = Window:CreateTab("🌍 Home", nill) -- Title, Image
+local MainSection = Tab:CreateSection("TDS HUB SCRIPTS")
+
+Rayfield:Notify({
+   Title = "Welcome to TDS HUB",
+   Content = "Make sure to join the server :) | https://discord.gg/WRcD8udv32",
+   Duration = 6.5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+
+      Ignore = { -- Duplicate this table (or remove it) to add and remove buttons to the notification.
+         Name = "Alright",
+         Callback = function()
+            print("Enjoy only keyless scripts!")
+         end
+      },
+
+},
+})
