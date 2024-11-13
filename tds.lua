@@ -34,7 +34,7 @@ local Window = Rayfield:CreateWindow({
 })
 
 local MainTab = Window:CreateTab("🌍 Home", nill) -- Title, Image
-local MainSection = Tab:CreateSection("TDS HUB SCRIPTS")
+local MainSection = MainTab:CreateSection("TDS HUB SCRIPTS")
 
 Rayfield:Notify({
    Title = "Welcome to TDS HUB",
