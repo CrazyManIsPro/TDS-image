@@ -96,3 +96,15 @@ local Button = TSBTab:CreateButton({
    loadstring(game:HttpGet(('https://gist.githubusercontent.com/skibiditoiletfan2007/9c8acec1b350bb2a27f4101e2eec803e/raw/bd6fe461cb8fe7b11c53f71999759b1fc5b5e649/TheCaptainsGoDownWithTheirShip.lua'),true))()
    end,
 })
+
+local WarMachinesTab = Window:CreateTab("War Machines", null)
+local Section = BloxFruitTab:CreateSection("Misc and Scripts")
+
+local WarMachinesToggle = Tab:CreateToggle({
+   Name = "Auto Farm Money",
+   CurrentValue = false,
+   Flag = "War Machine1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   loadstring(game:HttpGet("https://rawscripts.net/raw/War-Machines-ProBaconHub-15461"))()
+   end,
+})
