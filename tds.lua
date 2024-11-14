@@ -67,6 +67,6 @@ local Section = BloxFruitTab:CreateSection("Blox Fruit Scripts")
 local Button = BloxFruitTab:CreateButton({
    Name = "Redz Hub",
    Callback = function()
-   loadstring(game:HttpGet("https://raw.githubusercontent.com/RobloxScriptsExploit/Blox-Fruits/refs/heads/main/redz9999.lua"))()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()
    end,
 })
