@@ -75,6 +75,6 @@ local Button = BloxFruitTab:CreateButton({
 local Button = BloxFruitTab:CreateButton({
    Name = "Nava Hub",
    Callback = function()
-   loadstring(game:HttpGet("https://pastebin.com/k00brPKc"))()
+   loadstring(game:HttpGet('https://raw.githubusercontent.com/VEZ2/NEVAHUB/main/2'))()
    end,
 })
