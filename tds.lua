@@ -72,9 +72,3 @@ local Button = BloxFruitTab:CreateButton({
    end,
 })
 
-local Button = BloxFruitTab:CreateButton({
-   Name = "Neva Hub",
-   Callback = function()
-   -- The function that takes place when the button is pressed
-   end,
-})
