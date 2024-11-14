@@ -71,3 +71,10 @@ local Button = BloxFruitTab:CreateButton({
    loadstring(game:HttpGet("https://pastebin.com/raw/2BzdbZk8"))()
    end,
 })
+
+local Button = BloxFruitTab:CreateButton({
+   Name = "Nava Hub",
+   Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/k00brPKc"))()
+   end,
+})
