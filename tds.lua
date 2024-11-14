@@ -64,14 +64,7 @@ local Button = MainTab:CreateButton({
 local BloxFruitTab = Window:CreateTab("Blox Fruit", nil)
 local Section = BloxFruitTab:CreateSection("Blox Fruit Scripts")
 
-local scriptToCopy = [[
-local Button = BloxFruitTab:CreateButton({
-   Name = "Redz Hub",
-   Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()
-   end,
-})
-]]
+local scriptToCopy = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()]]
 
 -- Create a button that copies the script to the clipboard
 local Button = BloxFruitTab:CreateButton({
