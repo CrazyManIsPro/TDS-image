@@ -71,3 +71,11 @@ local Button = BloxFruitTab:CreateButton({
    loadstring(game:HttpGet("https://pastebin.com/raw/2BzdbZk8"))()
    end,
 })
+
+local Button = BloxFruitTab:CreateButton({
+   Name = "Universal ESP",
+   Callback = function()
+   loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Universal-ESP-Script-(Open-Sourced)-3278"))()
+   end,
+})
+
