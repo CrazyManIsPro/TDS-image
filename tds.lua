@@ -101,7 +101,7 @@ local WarMachinesTab = Window:CreateTab("War Machines", null)
 local Section = WarMachinesTab:CreateSection("Misc and Scripts")
 
 local Toggle = WarMachinesTab:CreateToggle({
-   Name = "Auto Farm Money",
+   Name = "Auto Farm Money| Wear suit for it to work",
    CurrentValue = false,
    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
