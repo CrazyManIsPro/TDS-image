@@ -72,10 +72,17 @@ local Button = BloxFruitTab:CreateButton({
    end,
 })
 
-local Button = BloxFruitTab:CreateButton({
+local Button = MainTab:CreateButton({
    Name = "Universal ESP",
    Callback = function()
    loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Universal-ESP-Script-(Open-Sourced)-3278"))()
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Big Head",
+   Callback = function()
+   loadstring(game:HttpGet("https://rawscripts.net/raw/AIMBLOX-Big-Hitbox-21219"))()
    end,
 })
 
