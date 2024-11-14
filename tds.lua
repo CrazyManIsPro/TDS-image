@@ -68,13 +68,13 @@ local Section = BloxFruitTab:CreateSection("Blox Fruit Scripts")
 local Button = BloxFruitTab:CreateButton({
    Name = "Redz Hub",
    Callback = function()
-   loadstring(game:HttpGet("https://pastebin.com/raw/2BzdbZk8"))()
+   loadstring(game:HttpGet("https://pastebin.com/k00brPKc"))()
    end,
 })
 
 local Button = BloxFruitTab:CreateButton({
-   Name = "Nava Hub",
+   Name = "Neva Hub",
    Callback = function()
-   loadstring(game:HttpGet('https://raw.githubusercontent.com/VEZ2/NEVAHUB/main/2'))()
+   -- The function that takes place when the button is pressed
    end,
 })
