@@ -61,24 +61,35 @@ local Button = MainTab:CreateButton({
 })
 
 
-local BloxFruitTab = Window:CreateTab("Blox Fruit", null)
+local BloxFruitTab = Window:CreateTab("Blox Fruit", nil)
 local Section = BloxFruitTab:CreateSection("Blox Fruit Scripts")
 
-local Input = BloxFruitTab:CreateInput({
-   Name = "Redz Hub Keyless",
-   CurrentValue = "",
-   PlaceholderText = "loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()",
-   RemoveTextAfterFocusLost = false,
-   Flag = "Input1",
-   Callback = function(Text)
-   -- The function that takes place when the input is changed
-   -- The variable (Text) is a string for the value in the text box
-   end,
-})
-
+local scriptToCopy = [[
 local Button = BloxFruitTab:CreateButton({
    Name = "Redz Hub",
    Callback = function()
-   loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()
+   end,
+})
+]]
+
+-- Create a button that copies the script to the clipboard
+local Button = BloxFruitTab:CreateButton({
+   Name = "Copy Redz Hub Script",
+   Callback = function()
+      if setclipboard then
+         setclipboard(scriptToCopy)
+         Rayfield:Notify({
+            Title = "Script Copied",
+            Content = "The Redz Hub script has been copied to your clipboard!",
+            Duration = 5,
+         })
+      else
+         Rayfield:Notify({
+            Title = "Clipboard Unsupported",
+            Content = "Your executor does not support clipboard functions.",
+            Duration = 5,
+         })
+      end
    end,
 })
