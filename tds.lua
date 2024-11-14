@@ -4,7 +4,7 @@ local Window = Rayfield:CreateWindow({
    Name = "TDS HUB ✔",
    LoadingTitle = "TDS Keyless Scripts",
    LoadingSubtitle = "Loading best hub....",
-   Theme = "Serenity", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+   Theme = "Amethyst", -- Check https://docs.sirius.menu/rayfield/configuration/themes
 
    DisableRayfieldPrompts = false,
    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
@@ -60,15 +60,13 @@ local Button = MainTab:CreateButton({
    end,
 })
 
-local Slider = MainTab:CreateSlider({
-   Name = "Walk Speed",
-   Range = {0, 300},
-   Increment = 1,
-   Suffix = "Speed",
-   CurrentValue = 16,
-   Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Value)
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed  = (Value)
+
+local BloxFruitTab = Window:CreateTab("Blox Fruit", null)
+local Section = BloxFruitTab:CreateSection("Blox Fruit Scripts")
+
+local Button = BloxFruitTab:CreateButton({
+   Name = "Redz Hub",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/RobloxScriptsExploit/Blox-Fruits/refs/heads/main/redz9999.lua"))()
    end,
 })
-
