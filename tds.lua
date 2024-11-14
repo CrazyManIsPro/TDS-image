@@ -88,7 +88,7 @@ local Button = MainTab:CreateButton({
 
 
 local TSBTab = Window:CreateTab("Strongest Battlegrounds", null)
-local Section = BloxFruitTab:CreateSection("The Strongest Battlegrounds")
+local Section = TSBTab:CreateSection("The Strongest Battlegrounds")
 
 local Button = TSBTab:CreateButton({
    Name = "Kade Hub",
@@ -98,12 +98,12 @@ local Button = TSBTab:CreateButton({
 })
 
 local WarMachinesTab = Window:CreateTab("War Machines", null)
-local Section = BloxFruitTab:CreateSection("Misc and Scripts")
+local Section = WarMachinesTab:CreateSection("Misc and Scripts")
 
-local WarMachinesToggle = Tab:CreateToggle({
+local Toggle = WarMachinesTab:CreateToggle({
    Name = "Auto Farm Money",
    CurrentValue = false,
-   Flag = "War Machine1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
    loadstring(game:HttpGet("https://rawscripts.net/raw/War-Machines-ProBaconHub-15461"))()
    end,
