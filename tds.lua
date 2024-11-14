@@ -64,6 +64,18 @@ local Button = MainTab:CreateButton({
 local BloxFruitTab = Window:CreateTab("Blox Fruit", null)
 local Section = BloxFruitTab:CreateSection("Blox Fruit Scripts")
 
+local Input = BloxFruitTab:CreateInput({
+   Name = "Redz Hub Keyless",
+   CurrentValue = "",
+   PlaceholderText = "loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+   -- The function that takes place when the input is changed
+   -- The variable (Text) is a string for the value in the text box
+   end,
+})
+
 local Button = BloxFruitTab:CreateButton({
    Name = "Redz Hub",
    Callback = function()
