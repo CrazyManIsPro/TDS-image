@@ -74,3 +74,14 @@ local Button = MainTab:CreateButton({
    loadstring(game:HttpGet("https://rawscripts.net/raw/AIMBLOX-Big-Hitbox-21219"))()
    end,
 })
+
+
+local BloxFruitTab = Window:CreateTab("Blox Fruit", null)
+local Section = BloxFruitTab:CreateSection("Blox Fruit Scripts")
+
+local Button = BloxFruitTab:CreateButton({
+   Name = "Redz Hub",
+   Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/2BzdbZk8"))()
+   end,
+})
