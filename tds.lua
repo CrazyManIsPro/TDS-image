@@ -1,4 +1,3 @@
-if game.PlaceId == 2753915549 then
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
@@ -61,6 +60,18 @@ local Button = MainTab:CreateButton({
    end,
 })
 
+
+local BloxFruitTab = Window:CreateTab("Blox Fruit", null)
+local Section = BloxFruitTab:CreateSection("Blox Fruit Scripts")
+
+
+local Button = BloxFruitTab:CreateButton({
+   Name = "Redz Hub",
+   Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/2BzdbZk8"))()
+   end,
+})
+
 local Button = MainTab:CreateButton({
    Name = "Universal ESP",
    Callback = function()
@@ -76,12 +87,23 @@ local Button = MainTab:CreateButton({
 })
 
 
-local BloxFruitTab = Window:CreateTab("Blox Fruit", null)
-local Section = BloxFruitTab:CreateSection("Blox Fruit Scripts")
+local TSBTab = Window:CreateTab("Strongest Battlegrounds", null)
+local Section = TSBTab:CreateSection("The Strongest Battlegrounds")
 
-local Button = BloxFruitTab:CreateButton({
-   Name = "Redz Hub",
+local Button = TSBTab:CreateButton({
+   Name = "Kade Hub",
    Callback = function()
-   loadstring(game:HttpGet("https://pastebin.com/raw/2BzdbZk8"))()
+   loadstring(game:HttpGet(('https://gist.githubusercontent.com/skibiditoiletfan2007/9c8acec1b350bb2a27f4101e2eec803e/raw/bd6fe461cb8fe7b11c53f71999759b1fc5b5e649/TheCaptainsGoDownWithTheirShip.lua'),true))()
    end,
 })
+
+local WarMachinesTab = Window:CreateTab("War Machines", null)
+local Section = WarMachinesTab:CreateSection("Misc and Scripts")
+
+local Toggle = WarMachinesTab:CreateToggle({
+   Name = "Auto Farm Money| Wear suit for it to work",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   loadstring(game:HttpGet("https://rawscripts.net/raw/War-Machines-ProBaconHub-15461"))()
+   end,
